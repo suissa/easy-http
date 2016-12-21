@@ -1,9 +1,4 @@
 function http(options) {
-
-  const paserJson = (dataString) => JSON.parse
-
-  const parseString = (json) => JSON.stringify
-
   
   return new Promise(function(resolve, reject) {
 
@@ -25,7 +20,7 @@ function http(options) {
 
     xhr.onload = function onload() {
       if (this.status >= 200 && this.status < 300) {
-        return resolve(paserJson(xhr.response))
+        return resolve(JSON.parse(xhr.response))
       }
       return reject(new ResponseError(this.status, xhr.statusText))
     }
@@ -35,6 +30,6 @@ function http(options) {
     }
 
     addHeaders(options.headers)
-    xhr.send(parseString(options.data))
+    xhr.send(JSON.stringify(options.data))
   })
 }
